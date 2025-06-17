@@ -1,0 +1,48 @@
+{% extends "../layouts/base.twig" %}
+
+{% block title %}
+	<title>Formulaire d'inscription</title>
+{% endblock %}
+
+{% block main %}
+	<main class="flex items-center justify-center min-h-screen bg-[#e7d8c9]">
+		<section class="w-full max-w-md bg-[#d6c3b0] shadow-lg rounded-xl p-8 border border-taupe-200">
+			<h1 class="text-2xl font-bold mb-6 text-taupe-700 text-center">Formulaire d'inscription</h1>
+			<form method="post" class="space-y-4">
+				<div>
+					<label for="raisonSociale" class="block text-taupe-700 mb-1">Raison Sociale *</label>
+					<input type="text" id="raisonSociale" name="raisonSociale" required class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
+				</div>
+				<div>
+					<label for="siret" class="block text-taupe-700 mb-1">Siret *</label>
+					<input type="text" id="siret" name="siret" required class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
+				</div>
+				<div>
+					<label for="mail" class="block text-taupe-700 mb-1">Votre email</label>
+					<input type="email" id="mail" name="mail" class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
+				</div>
+				<div>
+					<label for="password" class="block text-taupe-700 mb-1">Votre mot de passe *</label>
+					<input type="password" id="password" name="password" required class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
+				</div>
+				<div>
+					<label for="confirmPassword" class="block text-taupe-700 mb-1">Confirmez votre mot de passe *</label>
+					<input type="password" id="confirmPassword" name="confirmPassword" required class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
+					{% if error.confirmPassword %}
+						<p class="text-red-500 text-sm mt-1">{{ error.confirmPassword }}</p>
+					{% endif %}
+				</div>
+				<div>
+					<label for="name" class="block text-taupe-700 mb-1">Nom du Directeur</label>
+					<input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
+				</div>
+				<button type="submit" class="block mx-auto w-full py-2 rounded-lg bg-[#f6f5f2] text-[#6d4c2b] font-semibold border border-taupe-200 hover:bg-[#e7d8c9] transition">
+					S'inscrire
+				</button>
+			</form>
+			<p class="text-center text-sm text-taupe-700 mt-4">Déjà un compte ?
+				<a href="/login" class="underline hover:text-taupe-500">Connexion</a>
+			</p>
+		</section>
+	</main>
+{% endblock %}

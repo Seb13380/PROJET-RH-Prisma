@@ -1,0 +1,31 @@
+{% extends "../layouts/base.twig" %}
+
+{% block title %}
+	<title>Accueil Ressources Humaines</title>
+{% endblock %}
+
+{% block main %}
+	<main>
+		<section>
+			<h2>Bienvenue
+				{{ RH.name }}</h2>
+			<div>
+				<p>Vous êtes maintenant connecté!</p>
+			</div>
+			<h3 class="mt-8 text-lg font-bold">Liste des RH :</h3>
+			<ul class="mt-4 space-y-2">
+				{% for rh in RHs %}
+					<li class="bg-[#f6f5f2] rounded p-2 shadow">
+						<span class="font-semibold">{{ rh.name }}</span>
+						—
+						{{ rh.mail }}
+						—
+						{{ rh.raisonSociale }}
+					</li>
+				{% else %}
+					<li>Aucun RH trouvé.</li>
+				{% endfor %}
+			</ul>
+		</section>
+	</main>
+{% endblock %}
