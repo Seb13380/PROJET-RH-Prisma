@@ -5,60 +5,74 @@
 {% endblock %}
 
 {% block main %}
-    <main class="p-8 bg-[#f6f5f2] min-h-screen">
+    <main class="p-8 bg-[#f5f3f1] min-h-screen">
         <section class="max-w-7xl mx-auto">
-            <h2 class="text-2xl font-bold mb-4">Bienvenue {{ RH.name }}</h2>
-            <div class="bg-white p-4 rounded-lg shadow mb-8">
-                <p class="text-gray-600">Vous êtes maintenant connecté!</p>
+            <!-- En-tête de bienvenue -->
+            <h2 class="text-3xl font-bold mb-4 text-[#1c1917]">Bienvenue {{ RH.name }}</h2>
+            <div class="bg-[#ffffff] p-6 rounded-xl shadow-md mb-8 border border-[#e7e5e4]">
+                <p class="text-[#44403c]">Vous êtes maintenant connecté!</p>
             </div>
             
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold">Liste des Employés</h3>
-                <a href="/employes/register" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+            <!-- En-tête liste employés -->
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-bold text-[#1c1917]">Liste des Employés</h3>
+                <a href="/employes/register" 
+                   class="bg-[#292524] text-white px-6 py-3 rounded-lg hover:bg-[#44403c] transition-all duration-300 shadow-md hover:shadow-lg">
                     + Ajouter un employé
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Grille des employés -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {% for employe in employes %}
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
-                        <div class="bg-blue-500 p-4">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-[#e7e5e4]">
+                        <!-- En-tête de la carte -->
+                        <div class="bg-[#292524] p-5">
                             <h3 class="text-xl font-bold text-white">
                                 {{ employe.prenom }} {{ employe.nom }}
                             </h3>
                         </div>
-                        <div class="p-6 space-y-3">
-                            <div class="flex items-center text-gray-600">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        
+                        <!-- Corps de la carte -->
+                        <div class="p-6 space-y-4 bg-[#fafaf9]">
+                            <!-- Email -->
+                            <div class="flex items-center text-[#44403c] group">
+                                <svg class="w-5 h-5 mr-3 text-[#78716c] group-hover:text-[#292524] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                 </svg>
-                                <span>{{ employe.mail }}</span>
+                                <span class="group-hover:text-[#292524] transition-colors">{{ employe.mail }}</span>
                             </div>
+
+                            <!-- Age -->
                             {% if employe.age %}
-                                <div class="flex items-center text-gray-600">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="flex items-center text-[#44403c] group">
+                                    <svg class="w-5 h-5 mr-3 text-[#78716c] group-hover:text-[#292524] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"/>
                                     </svg>
-                                    <span>{{ employe.age }} ans</span>
+                                    <span class="group-hover:text-[#292524] transition-colors">{{ employe.age }} ans</span>
                                 </div>
                             {% endif %}
+
+                            <!-- Genre -->
                             {% if employe.genre %}
-                                <div class="flex items-center text-gray-600">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="flex items-center text-[#44403c] group">
+                                    <svg class="w-5 h-5 mr-3 text-[#78716c] group-hover:text-[#292524] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                     </svg>
-                                    <span>{{ employe.genre }}</span>
+                                    <span class="group-hover:text-[#292524] transition-colors">{{ employe.genre }}</span>
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="px-6 pb-4 flex gap-2">
+
+                        <!-- Actions -->
+                        <div class="px-6 py-4 bg-white border-t border-[#e7e5e4] flex gap-3">
                             <a href="/employes/edit/{{ employe.id }}" 
-                               class="flex-1 bg-yellow-500 text-white text-center py-2 rounded hover:bg-yellow-600 transition">
+                               class="flex-1 bg-[#78716c] text-white text-center py-2.5 rounded-lg hover:bg-[#57534e] transition-all duration-300 shadow-sm hover:shadow">
                                 Modifier
                             </a>
                             <form method="post" action="/employes/delete/{{ employe.id }}" class="flex-1">
                                 <button type="submit" 
-                                        class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 transition"
+                                        class="w-full bg-[#ef4444] text-white py-2.5 rounded-lg hover:bg-[#dc2626] transition-all duration-300 shadow-sm hover:shadow"
                                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')">
                                     Supprimer
                                 </button>
@@ -66,10 +80,10 @@
                         </div>
                     </div>
                 {% else %}
-                    <div class="col-span-3 text-center py-12 bg-white rounded-lg shadow">
-                        <p class="text-gray-500">Aucun employé trouvé</p>
-                        <a href="/employes/register" class="inline-block mt-4 text-blue-500 hover:text-blue-600">
-                            Ajouter un premier employé
+                    <div class="col-span-3 text-center py-16 bg-white rounded-xl shadow-md border border-[#e7e5e4]">
+                        <p class="text-[#78716c] text-lg">Aucun employé trouvé</p>
+                        <a href="/employes/register" class="inline-block mt-4 text-[#292524] hover:text-[#44403c] font-medium">
+                            Ajouter un premier employé →
                         </a>
                     </div>
                 {% endfor %}

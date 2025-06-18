@@ -1,5 +1,4 @@
-
-const authguard = (req, res, next) => {
+module.exports = (req, res, next) => {
     try {
         if (req.session.RH) {
             return next();
@@ -11,5 +10,3 @@ const authguard = (req, res, next) => {
         res.redirect("/login");
     }
 };
-
-module.exports = authguard;

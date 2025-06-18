@@ -5,9 +5,17 @@ const prisma = new PrismaClient();
 exports.listEmployes = async (req, res) => {
     try {
         const employes = await prisma.employe.findMany();
-        res.render('pages/employes', { employes });
+        res.render('pages/employes', { 
+            employes,
+            RH: req.session.RH 
+        });
     } catch (error) {
-        res.render('pages/employes', { employes: [], error });
+        console.error(error);
+        res.status(500).render('pages/employes', { 
+            error: 'Erreur lors du chargement des employés',
+            employes: [],
+            RH: req.session.RH
+        });
     }
 };
 

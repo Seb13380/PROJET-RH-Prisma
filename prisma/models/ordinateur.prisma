@@ -1,14 +1,12 @@
 model ordinateurs {
-    id              Int       @id @default(autoincrement())
-    macAddress      String    @unique @db.VarChar(17)
-    marque          String
-    modele          String
-    dateAchat       DateTime
-    dateFinGarantie DateTime?
-    statut          String
-    employeId       Int?
-    employe         employe? @relation(fields: [employeId], references: [id])
-    disponible      Boolean   @default(true)
-    rhId            Int?
-    rh              RH?       @relation(fields: [rhId], references: [id])
+  id          Int       @id @default(autoincrement())
+  macAddress  String    @unique
+  marque      String
+  modele      String
+  disponible  Boolean   @default(true)
+  statut      String    @default("Disponible")
+  employeId   Int?
+  rhId        Int
+  employe     employe?  @relation(fields: [employeId], references: [id])
+  rh          RH        @relation(fields: [rhId], references: [id])
 }

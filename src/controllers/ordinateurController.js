@@ -1,64 +1,50 @@
-const { PrismaClient } = require("../../generated/prisma");
+const { PrismaClient } = require('../../generated/prisma');
 const prisma = new PrismaClient();
 
 exports.listOrdinateurs = async (req, res) => {
     try {
-        const ordinateurs = await prisma.ordinateurs.findMany({
-            include: {
-                employe: true
-            }
+        const ordinateurs = await prisma.ordinateur.findMany();
+        res.render('pages/ordinateurs', {
+            ordinateurs,
+            RH: req.session.RH
         });
-        res.render('pages/ordinateurs', { ordinateurs });
     } catch (error) {
         console.error(error);
-        res.render('pages/ordinateurs', { ordinateurs: [] });
+        res.status(500).render('pages/ordinateurs', {
+            error: 'Erreur lors du chargement des ordinateurs',
+            ordinateurs: [],
+            RH: req.session.RH
+        });
     }
 };
 
-exports.getOrdinateurRegister = (req, res) => {
-    res.render('pages/registerOrdinateur');
+exports.showRegisterForm = async (req, res) => {
+    try {
+        res.render('pages/registerOrdinateur', {
+            RH: req.session.RH
+        });
+    } catch (error) {
+        console.error(error);
+        res.redirect('/ordinateurs');
+    }
 };
 
-exports.postOrdinateurRegister = async (req, res) => {
+exports.registerOrdinateur = async (req, res) => {
     try {
-        const { macAddress, marque, modele } = req.body;
-        await prisma.ordinateurs.create({
+        const { nom, marque, type } = req.body;
+        await prisma.ordinateur.create({
             data: {
-                macAddress,
+                nom,
                 marque,
-                modele,
-                rhId: req.session.RH.id
+                type
             }
         });
         res.redirect('/ordinateurs');
     } catch (error) {
         console.error(error);
-        res.render('pages/registerOrdinateur', { error });
-    }
-};
-
-exports.editOrdinateur = async (req, res) => {
-    try {
-        const { macAddress, marque, modele } = req.body;
-        await prisma.ordinateurs.update({
-            where: { id: Number(req.params.id) },
-            data: { macAddress, marque, modele }
+        res.render('pages/registerOrdinateur', {
+            error: 'Erreur lors de l\'enregistrement de l\'ordinateur',
+            RH: req.session.RH
         });
-        res.redirect('/ordinateurs');
-    } catch (error) {
-        console.error(error);
-        res.redirect('/ordinateurs');
-    }
-};
-
-exports.deleteOrdinateur = async (req, res) => {
-    try {
-        await prisma.ordinateurs.delete({
-            where: { id: Number(req.params.id) }
-        });
-        res.redirect('/ordinateurs');
-    } catch (error) {
-        console.error(error);
-        res.redirect('/ordinateurs');
     }
 };

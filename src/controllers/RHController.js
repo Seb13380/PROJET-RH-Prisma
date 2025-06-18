@@ -38,15 +38,17 @@ exports.getLogin = async (req, res) => {
 exports.postLogin = async (req, res) => {
     try {
         const { mail, password } = req.body;
-        const RH = await prisma.RH.findUnique({ where: { mail } });
-        if (!RH) throw "Identifiants invalides";
-        const valid = await bcrypt.compare(password, RH.password);
-        if (!valid) throw "Identifiants invalides";
-        req.session.RH = { id: RH.id, name: RH.name };
-        res.redirect('/');
+        const rh = await prisma.rH.findUnique({ where: { mail } });
+        
+        if (rh && await bcrypt.compare(password, rh.password)) {
+            req.session.RH = rh;
+            res.redirect('/');
+        } else {
+            res.render('pages/login', { error: 'Identifiants incorrects' });
+        }
     } catch (error) {
-        console.log(error);
-        res.render('pages/login', { error: { global: "Identifiants invalides" } });
+        console.error(error);
+        res.render('pages/login', { error: 'Erreur lors de la connexion' });
     }
 };
 

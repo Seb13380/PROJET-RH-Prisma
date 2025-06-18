@@ -3,14 +3,9 @@ const router = express.Router();
 const ordinateurController = require("../controllers/ordinateurController");
 const authguard = require("../services/authguard");
 
-router.get("/", ordinateurController.listOrdinateurs);
-
-router.get("/register", ordinateurController.getOrdinateurRegister);
-
-router.post("/register", ordinateurController.postOrdinateurRegister);
-
-router.post("/edit/:id", ordinateurController.editOrdinateur);
-
-router.post("/delete/:id", ordinateurController.deleteOrdinateur);
+// Routes pour les ordinateurs
+router.get("/", authguard, ordinateurController.listOrdinateurs);
+router.get("/register", authguard, ordinateurController.showRegisterForm);
+router.post("/register", authguard, ordinateurController.registerOrdinateur);
 
 module.exports = router;
