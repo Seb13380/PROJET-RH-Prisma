@@ -1,0 +1,55 @@
+{% extends "../layouts/base.twig" %}
+
+{% block title %}
+    <title>Gestion des ordinateurs</title>
+{% endblock %}
+
+{% block main %}
+<main class="container mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">Liste des ordinateurs</h1>
+        <a href="/ordinateurs/register" 
+           class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+            Ajouter un ordinateur
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for ordinateur in ordinateurs %}
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h2 class="text-xl font-semibold">{{ ordinateur.marque }} {{ ordinateur.modele }}</h2>
+                        <p class="text-gray-600 text-sm">MAC: {{ ordinateur.macAddress }}</p>
+                    </div>
+                    {% if ordinateur.employe %}
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                            Attribué à {{ ordinateur.employe.prenom }} {{ ordinateur.employe.nom }}
+                        </span>
+                    {% else %}
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                            Non attribué
+                        </span>
+                    {% endif %}
+                </div>
+
+                <div class="flex gap-2 mt-4">
+                    <button onclick="toggleEdit('edit-{{ ordinateur.id }}')"
+                            class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition">
+                        Modifier
+                    </button>
+                    <form method="post" action="/ordinateurs/delete/{{ ordinateur.id }}" class="inline">
+                        <button type="submit" 
+                                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition" 
+                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet ordinateur ?')">
+                            Supprimer
+                        </button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-gray-500 text-center col-span-3">Aucun ordinateur enregistré</p>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

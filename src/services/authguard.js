@@ -1,13 +1,15 @@
-const authguard = async(req, res, next) => {
-    try{
-        if(req.session.RH){
+
+const authguard = (req, res, next) => {
+    try {
+        if (req.session.RH) {
             return next();
         }
-        else throw ("Utilisateur non connecté")
+        throw new Error("Utilisateur non connecté");
     }
-    catch(error){
-        res.redirect("/login")
+    catch (error) {
+        console.log("Auth Error:", error.message);
+        res.redirect("/login");
     }
-}
+};
 
-module.exports = authguard
+module.exports = authguard;

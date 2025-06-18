@@ -7,6 +7,8 @@ model ordinateurs {
     dateFinGarantie DateTime?
     statut          String
     employeId       Int?
-    employes         employe? @relation(fields: [employeId], references: [id])
+    employe         employe? @relation(fields: [employeId], references: [id])
     disponible      Boolean   @default(true)
+    rhId            Int?
+    rh              RH?       @relation(fields: [rhId], references: [id])
 }

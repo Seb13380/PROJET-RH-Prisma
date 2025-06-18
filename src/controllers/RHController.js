@@ -12,13 +12,12 @@ exports.getRegister = async (req, res) => {
 exports.postRegister = async (req, res) => {
     try {
         if (req.body.password === req.body.confirmPassword) {
-            const hashedPassword = await bcrypt.hash(req.body.password, 10);
             const responsable = await prisma.RH.create({
                 data: {
                     raisonSociale: req.body.raisonSociale,
                     siret: req.body.siret,
                     mail: req.body.mail,
-                    password: hashedPassword,
+                    password: req.body.password ,
                     name: req.body.name,
                 }
             });
@@ -62,8 +61,22 @@ exports.getLogout = (req, res) => {
 }
 
 exports.listEmployes = async (req, res) => {
-    const employes = await prisma.employe.findMany();
-    res.render('pages/employes', { employes });
+    try {
+        const employes = await prisma.employe.findMany({
+            select: {
+                id: true,
+                nom: true,
+                prenom: true,
+                mail: true,
+                genre: true,
+                age: true
+            }
+        });
+        res.render('pages/employes', { employes });
+    } catch (error) {
+        console.error(error);
+        res.render('pages/employes', { employes: [] });
+    }
 };
 
 exports.addEmploye = async (req, res) => {
@@ -91,10 +104,25 @@ exports.deleteEmploye = async (req, res) => {
 
 exports.getHome = async (req, res) => {
     try {
-        const RHs = await prisma.RH.findMany();
-        res.render('pages/home', { RHs, RH: req.session.RH });
+        const employes = await prisma.employe.findMany({
+            select: {
+                id: true,
+                nom: true,
+                prenom: true,
+                mail: true,
+                age: true,
+                genre: true
+            }
+        });
+        res.render('pages/home', { 
+            RH: req.session.RH,
+            employes: employes
+        });
     } catch (error) {
         console.error(error);
-        res.render('pages/home', { RHs: [], RH: req.session.RH });
+        res.render('pages/home', { 
+            RH: req.session.RH,
+            employes: []
+        });
     }
 };

@@ -1,11 +1,10 @@
-model RH{
-  id Int @id @default(autoincrement())
-  name String
+model RH {
+  id            Int         @id @default(autoincrement())
+  name          String
   raisonSociale String
-  mail String @unique @db.VarChar(255)
-  password String
-  siret String @unique @db.VarChar(14)
-  employes employe[]
-  ordinateurs ordinateurs[]
+  mail          String      @unique
+  password      String
+  siret         String
+  employes      employe[]
+  ordinateurs   ordinateurs[]
 }
-

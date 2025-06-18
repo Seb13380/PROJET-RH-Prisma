@@ -1,16 +1,12 @@
-model employe{
-  id Int @id @default(autoincrement())
-  nom String
-  prenom String
-  mail String @unique @db.VarChar(255)
-  dateNaissance DateTime
-  dateEntree DateTime
-  dateSortie DateTime?
-rh RH @relation(fields: [rhId], references: [id])
-  rhId Int
-  poste String
-  salaire Float
-  heuresTravaillees Int
- ordinateurs ordinateurs[]
- 
+model employe {
+  id          Int         @id @default(autoincrement())
+  nom         String
+  prenom      String
+  mail        String      @unique
+  password    String
+  age         Int?
+  genre       String?
+  rhId        Int?
+  rh          RH?         @relation(fields: [rhId], references: [id])
+  ordinateurs  ordinateurs[]
 }

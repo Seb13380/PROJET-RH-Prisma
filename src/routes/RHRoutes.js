@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const RHController = require("../controllers/RHController");
-const authguard = require("../services/authguard");
+const authguard = require("../services/authguard.js");
 
 router.get("/register", RHController.getRegister);
 router.post("/register", RHController.postRegister);
