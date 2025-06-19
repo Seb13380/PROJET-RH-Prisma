@@ -16,7 +16,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
-    "build:css": "npx tailwindcss -i ./src/public/assets/css/tailwind.css -o ./public/assets/css/tailwind.css"
+    "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./public/assets/css/tailwind.css"
   },
   "author": "Sebby",
   "license": "ISC",

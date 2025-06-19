@@ -5,13 +5,14 @@ const prisma = new PrismaClient();
 exports.listEmployes = async (req, res) => {
     try {
         const employes = await prisma.employe.findMany();
-        res.render('pages/employes', { 
+        
+        res.render('pages/employes.twig', {
             employes,
-            RH: req.session.RH 
+            RH: req.session.RH
         });
     } catch (error) {
         console.error(error);
-        res.status(500).render('pages/employes', { 
+        res.status(500).render('pages/employes', {
             error: 'Erreur lors du chargement des employés',
             employes: [],
             RH: req.session.RH
@@ -55,5 +56,45 @@ exports.deleteEmploye = async (req, res) => {
         res.redirect('/employes');
     } catch (error) {
         res.redirect('/employes');
+    }
+};
+
+exports.showRegisterForm = async (req, res) => {
+    try {
+        res.render('pages/registerEmploye', { RH: req.session.RH });
+    } catch (error) {
+        console.error(error);
+        res.redirect('/employes');
+    }
+};
+
+exports.registerEmploye = async (req, res) => {
+    try {
+        const { nom, prenom, mail, genre } = req.body;
+
+        if (!nom || !prenom || !mail || !genre) {
+            return res.render('pages/registerEmploye', {
+                error: "Tous les champs sont obligatoires",
+                RH: req.session.RH
+            });
+        }
+
+        const newEmploye = await prisma.employe.create({
+            data: {
+                nom,
+                prenom,
+                mail,
+                genre,
+                rhId: req.session.RH.id
+            }
+        });
+
+        res.redirect('/employes');
+    } catch (error) {
+        console.error('Erreur détaillée:', error);
+        res.render('pages/registerEmploye', {
+            error: "Erreur lors de l'ajout de l'employé",
+            RH: req.session.RH
+        });
     }
 };

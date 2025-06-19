@@ -1,48 +1,104 @@
 {% extends "../layouts/base.twig" %}
 
-{% block title %}
-	<title>Formulaire d'inscription</title>
+{% block title %}Inscription
 {% endblock %}
 
 {% block main %}
-	<main class="flex items-center justify-center min-h-screen bg-[#e7d8c9]">
-		<section class="w-full max-w-md bg-[#d6c3b0] shadow-lg rounded-xl p-8 border border-taupe-200">
-			<h1 class="text-2xl font-bold mb-6 text-taupe-700 text-center">Formulaire d'inscription</h1>
-			<form method="post" class="space-y-4">
-				<div>
-					<label for="raisonSociale" class="block text-taupe-700 mb-1">Raison Sociale *</label>
-					<input type="text" id="raisonSociale" name="raisonSociale" required class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
+	<div class="min-h-screen flex items-center justify-center py-16 px-4">
+		<div
+			class="max-w-xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
+			<!-- En-tête -->
+			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Projet RH</h1>
+			<h2 class="text-3xl text-center text-[#a89682] mb-12">Inscription</h2>
+
+			<!-- Messages d'erreur -->
+			{% if error %}
+				<div class="bg-red-100/10 text-red-400 p-4 rounded-lg mb-6 text-center">
+					{{ error }}
 				</div>
-				<div>
-					<label for="siret" class="block text-taupe-700 mb-1">Siret *</label>
-					<input type="text" id="siret" name="siret" required class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
+			{% endif %}
+
+			<!-- Formulaire -->
+			<form
+				method="post" class="space-y-8">
+				<!-- Each form group with increased spacing -->
+				<div class="space-y-4">
+					<label for="raisonSociale" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">
+						Raison Sociale
+					</label>
+					<input type="text" id="raisonSociale" name="raisonSociale" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+					                              bg-[#2a2a33] text-[#d6bfa7] py-6 px-5 min-h-[4rem]
+					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+					                              placeholder-[#8b7355]">
 				</div>
-				<div>
-					<label for="mail" class="block text-taupe-700 mb-1">Votre email</label>
-					<input type="email" id="mail" name="mail" class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
+
+				<div class="space-y-4">
+					<label for="siret" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2.5">
+						SIRET
+					</label>
+					<input type="text" id="siret" name="siret" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+					                              bg-[#2a2a33] text-[#d6bfa7] py-6 px-5 min-h-[4rem]
+					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+					                              placeholder-[#8b7355]">
 				</div>
-				<div>
-					<label for="password" class="block text-taupe-700 mb-1">Votre mot de passe *</label>
-					<input type="password" id="password" name="password" required class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
+
+				<div class="space-y-4">
+					<label for="mail" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">
+						Adresse email
+					</label>
+					<input type="email" id="mail" name="mail" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+					                              bg-[#2a2a33] text-[#d6bfa7] py-6 px-5 min-h-[4rem]
+					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+					                              placeholder-[#8b7355]">
 				</div>
-				<div>
-					<label for="confirmPassword" class="block text-taupe-700 mb-1">Confirmez votre mot de passe *</label>
-					<input type="password" id="confirmPassword" name="confirmPassword" required class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
-					{% if error.confirmPassword %}
-						<p class="text-red-500 text-sm mt-1">{{ error.confirmPassword }}</p>
-					{% endif %}
+
+				<div class="space-y-4">
+					<label for="password" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">
+						Mot de passe
+					</label>
+					<input type="password" id="password" name="password" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+					                              bg-[#2a2a33] text-[#d6bfa7] py-6 px-5 min-h-[4rem]
+					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+					                              placeholder-[#8b7355]">
 				</div>
-				<div>
-					<label for="name" class="block text-taupe-700 mb-1">Nom du Directeur</label>
-					<input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg border border-taupe-200 focus:outline-none focus:ring-2 focus:ring-pastel-100 bg-[#DDD6FF]"/>
+
+				<div class="space-y-4">
+					<label for="confirmPassword" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">
+						Confirmer le mot de passe
+					</label>
+					<input type="password" id="confirmPassword" name="confirmPassword" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+					                              bg-[#2a2a33] text-[#d6bfa7] py-6 px-5 min-h-[4rem]
+					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+					                              placeholder-[#8b7355]">
 				</div>
-				<button type="submit" class="block mx-auto w-full py-2 rounded-lg bg-[#f6f5f2] text-[#6d4c2b] font-semibold border border-taupe-200 hover:bg-[#e7d8c9] transition">
+
+				<div class="space-y-4">
+					<label for="name" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">
+						Nom du Directeur
+					</label>
+					<input type="text" id="name" name="name" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+					                              bg-[#2a2a33] text-[#d6bfa7] py-6 px-5 min-h-[4rem]
+					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+					                              placeholder-[#8b7355]">
+				</div>
+
+				<!-- Bouton de soumission -->
+				<button type="submit" class="w-full bg-[#d6bfa7] text-[#23232a] font-bold text-xl py-6 px-8 rounded-xl min-h-[4rem]
+						                           hover:bg-[#bfa888] transform hover:scale-[1.02]
+						                           transition-all duration-200 ease-in-out
+						                           shadow-lg hover:shadow-xl mt-8">
 					S'inscrire
 				</button>
 			</form>
-			<p class="text-center text-sm text-taupe-700 mt-4">Déjà un compte ?
-				<a href="/login" class="underline hover:text-taupe-500">Connexion</a>
-			</p>
-		</section>
-	</main>
+
+			<!-- Lien de connexion -->
+			<div class="mt-8 text-center">
+				<span class="text-[#a89682]">Déjà un compte ?
+				</span>
+				<a href="/login" class="text-[#d6bfa7] hover:text-[#bfa888] font-semibold transition-colors">
+					Se connecter
+				</a>
+			</div>
+		</div>
+	</div>
 {% endblock %}

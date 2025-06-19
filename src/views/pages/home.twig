@@ -5,89 +5,51 @@
 {% endblock %}
 
 {% block main %}
-    <main class="p-8 bg-[#f5f3f1] min-h-screen">
-        <section class="max-w-7xl mx-auto">
-            <!-- En-tête de bienvenue -->
-            <h2 class="text-3xl font-bold mb-4 text-[#1c1917]">Bienvenue {{ RH.name }}</h2>
-            <div class="bg-[#ffffff] p-6 rounded-xl shadow-md mb-8 border border-[#e7e5e4]">
-                <p class="text-[#44403c]">Vous êtes maintenant connecté!</p>
-            </div>
-            
-            <!-- En-tête liste employés -->
-            <div class="flex justify-between items-center mb-8">
-                <h3 class="text-2xl font-bold text-[#1c1917]">Liste des Employés</h3>
-                <a href="/employes/register" 
-                   class="bg-[#292524] text-white px-6 py-3 rounded-lg hover:bg-[#44403c] transition-all duration-300 shadow-md hover:shadow-lg">
-                    + Ajouter un employé
-                </a>
-            </div>
+<div class="min-h-screen flex flex-col items-center justify-center py-16 px-4 gap-12">
+    <div class="max-w-4xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7] mb-12">
+        <h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Projet RH</h1>
+        <h2 class="text-3xl text-center text-[#a89682] mb-12">Bienvenue sur votre espace RH</h2>
+        <div class="text-center text-[#d6bfa7] text-xl">
+            <p class="mb-6">Gérez vos employés et vos ressources informatiques en toute simplicité.</p>
+        </div>
+    </div>
 
-            <!-- Grille des employés -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {% for employe in employes %}
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-[#e7e5e4]">
-                        <!-- En-tête de la carte -->
-                        <div class="bg-[#292524] p-5">
-                            <h3 class="text-xl font-bold text-white">
-                                {{ employe.prenom }} {{ employe.nom }}
-                            </h3>
-                        </div>
-                        
-                        <!-- Corps de la carte -->
-                        <div class="p-6 space-y-4 bg-[#fafaf9]">
-                            <!-- Email -->
-                            <div class="flex items-center text-[#44403c] group">
-                                <svg class="w-5 h-5 mr-3 text-[#78716c] group-hover:text-[#292524] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                </svg>
-                                <span class="group-hover:text-[#292524] transition-colors">{{ employe.mail }}</span>
-                            </div>
+    <div class="max-w-4xl w-full grid md:grid-cols-2 gap-12">
 
-                            <!-- Age -->
-                            {% if employe.age %}
-                                <div class="flex items-center text-[#44403c] group">
-                                    <svg class="w-5 h-5 mr-3 text-[#78716c] group-hover:text-[#292524] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"/>
-                                    </svg>
-                                    <span class="group-hover:text-[#292524] transition-colors">{{ employe.age }} ans</span>
-                                </div>
-                            {% endif %}
+        <div class="bg-[#23232a] rounded-2xl shadow-xl p-8 border-2 border-[#d6bfa7]">
+            <h3 class="text-2xl font-bold text-[#d6bfa7] mb-6 text-center">Employés</h3>
+            {% if employes and employes|length > 0 %}
+                <ul class="space-y-4">
+                    {% for employe in employes %}
+                        <li class="bg-[#2a2a33] rounded-xl p-4 border border-[#a89682]">
+                            <span class="font-semibold">{{ employe.nom }} {{ employe.prenom }}</span>
+                            <span class="block text-[#a89682]">{{ employe.poste }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-center text-[#a89682]">Aucun employé enregistré.</p>
+            {% endif %}
+        </div>
 
-                            <!-- Genre -->
-                            {% if employe.genre %}
-                                <div class="flex items-center text-[#44403c] group">
-                                    <svg class="w-5 h-5 mr-3 text-[#78716c] group-hover:text-[#292524] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                    </svg>
-                                    <span class="group-hover:text-[#292524] transition-colors">{{ employe.genre }}</span>
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- Actions -->
-                        <div class="px-6 py-4 bg-white border-t border-[#e7e5e4] flex gap-3">
-                            <a href="/employes/edit/{{ employe.id }}" 
-                               class="flex-1 bg-[#78716c] text-white text-center py-2.5 rounded-lg hover:bg-[#57534e] transition-all duration-300 shadow-sm hover:shadow">
-                                Modifier
-                            </a>
-                            <form method="post" action="/employes/delete/{{ employe.id }}" class="flex-1">
-                                <button type="submit" 
-                                        class="w-full bg-[#ef4444] text-white py-2.5 rounded-lg hover:bg-[#dc2626] transition-all duration-300 shadow-sm hover:shadow"
-                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')">
-                                    Supprimer
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="col-span-3 text-center py-16 bg-white rounded-xl shadow-md border border-[#e7e5e4]">
-                        <p class="text-[#78716c] text-lg">Aucun employé trouvé</p>
-                        <a href="/employes/register" class="inline-block mt-4 text-[#292524] hover:text-[#44403c] font-medium">
-                            Ajouter un premier employé →
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-        </section>
-    </main>
+        <div class="bg-[#23232a] rounded-2xl shadow-xl p-8 border-2 border-[#d6bfa7]">
+            <h3 class="text-2xl font-bold text-[#d6bfa7] mb-6 text-center">Ordinateurs</h3>
+            {% if ordinateurs and ordinateurs|length > 0 %}
+                <ul class="space-y-4">
+                    {% for ordi in ordinateurs %}
+                        <li class="bg-[#2a2a33] rounded-xl p-4 border border-[#a89682]">
+                            <span class="font-semibold">{{ ordi.marque }} {{ ordi.modele }}</span>
+                            <span class="block text-[#a89682]">MAC : {{ ordi.macAddress }}</span>
+                            <span class="block text-[#a89682]">Statut : {{ ordi.statut }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-center text-[#a89682]">Aucun ordinateur enregistré.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+const { PrismaClient } = require('@prisma/client');

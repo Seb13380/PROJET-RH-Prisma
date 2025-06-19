@@ -1,63 +1,42 @@
 {% extends "../layouts/base.twig" %}
 
-{% block title %}
-    <title>Gestion des employés</title>
+{% block title %}Employés
 {% endblock %}
 
 {% block main %}
-    <main class="p-8 bg-[#f6f5f2] min-h-screen">
-      
-        <section class="mb-8 bg-white p-6 rounded-lg shadow">
-            <h2 class="text-2xl font-bold mb-4">Ajouter un employé</h2>
-            <form method="post" action="/employes/add" class="grid grid-cols-2 gap-4">
-                <input type="text" name="nom" placeholder="Nom" required class="px-4 py-2 border rounded"/>
-                <input type="text" name="prenom" placeholder="Prénom" required class="px-4 py-2 border rounded"/>
-                <input type="email" name="mail" placeholder="Email" required class="px-4 py-2 border rounded"/>
-                <input type="password" name="password" placeholder="Mot de passe" required class="px-4 py-2 border rounded"/>
-                <input type="number" name="age" placeholder="Âge" class="px-4 py-2 border rounded"/>
-                <input type="text" name="genre" placeholder="Genre" class="px-4 py-2 border rounded"/>
-                <button 
-                    type="submit" 
-                    class="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded transition-colors">
-                    Ajouter
-                </button>
-            </form>
-        </section>
+	<div class="min-h-screen flex items-center justify-center py-16 px-4">
+		<div
+			class="max-w-xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
 
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {% for employe in employes %}
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h3 class="text-xl font-bold">{{ employe.prenom }} {{ employe.nom }}</h3>
-                <p class="text-gray-600">{{ employe.mail }}</p>
-                {% if employe.age %}<p class="text-sm">{{ employe.age }} ans</p>{% endif %}
-                {% if employe.genre %}<p class="text-sm">{{ employe.genre }}</p>{% endif %}
+			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Projet RH</h1>
+			<h2 class="text-3xl text-center text-[#a89682] mb-12">Liste des employés</h2>
 
-                <div class="mt-4">
-                    <h4 class="font-semibold">Ordinateurs :</h4>
-                    {% for ordi in employe.ordinateur %}
-                        <p class="text-sm">{{ ordi.marque }} {{ ordi.modele }}</p>
-                    {% else %}
-                        <p class="text-sm text-gray-500">Aucun ordinateur attribué</p>
-                    {% endfor %}
-                </div>
+			{% if error %}
+				<div class="bg-red-100/10 text-red-400 p-4 rounded-lg mb-6 text-center">
+					{{ error }}
+				</div>
+			{% endif %}
 
-                <div class="mt-4 flex gap-2">
-                    <button onclick="toggleEdit('edit-{{ employe.id }}')" class="bg-yellow-500 text-white px-4 py-1 rounded">
-                        Modifier
-                    </button>
-                    <form method="post" action="/employes/delete/{{ employe.id }}" class="inline">
-                        <button type="submit" class="bg-red-500 text-white px-4 py-1 rounded">Supprimer</button>
-                    </form>
-                </div>
-            </div>
-            {% endfor %}
-        </section>
-    </main>
+			<div class="space-y-6">
+				{% for employe in employes %}
+					<div class="bg-[#2a2a33] p-6 rounded-xl border-2 border-[#d6bfa7]">
+						<h3 class="text-2xl font-medium text-[#d6bfa7] mb-2">{{ employe.nom }}
+							{{ employe.prenom }}</h3>
+						<p class="text-xl text-[#a89682]">{{ employe.poste }}</p>
+						<p class="text-lg text-[#a89682]">{{ employe.mail }}</p>
+						<p class="text-lg text-[#a89682]">{{ employe.genre }}</p>
+					</div>
+				{% else %}
+					<p class="text-xl text-center text-[#a89682]">Aucun employé trouvé</p>
+				{% endfor %}
+			</div>
 
-    <script>
-    function toggleEdit(id) {
-        const form = document.getElementById(id);
-        form.classList.toggle('hidden');
-    }
-    </script>
+			<a href="/employes/register" class="block w-full bg-[#d6bfa7] text-[#23232a] font-bold text-xl py-6 px-8 rounded-xl min-h-[4rem]
+															                  hover:bg-[#bfa888] transform hover:scale-[1.02]
+															                  transition-all duration-200 ease-in-out
+															                  shadow-lg hover:shadow-xl mt-8 text-center">
+				+ Nouvel employé
+			</a>
+		</div>
+	</div>
 {% endblock %}

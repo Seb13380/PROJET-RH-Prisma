@@ -1,6 +1,8 @@
 const express = require("express");
 const twig = require('twig');
 const dotenv = require('dotenv');
+const session = require("express-session");
+const employeRoutes = require('./src/routes/employeRoutes');
 
 // Chargement des variables d'environnement
 const result = dotenv.config();
@@ -11,19 +13,11 @@ if (result.error) {
 
 const RHRoutes = require("./src/routes/RHRoutes");
 const mainRoutes = require("./src/routes/mainRoutes");
-const session = require("express-session");
 const authguard = require("./src/services/authguard");
 const ordinateurRoutes = require('./src/routes/ordinateurRoutes');
-
+const homeRoutes = require('./src/routes/homeRoutes');
 const app = express();
 
-// Configuration de base
-app.set('view engine', 'twig');
-app.set('views', './src/views');
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
-
-// Configuration de la session
 app.use(session({
   secret: process.env.SESSION_SECRET || 'default_secret',
   resave: false,
@@ -33,6 +27,15 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000
   }
 }));
+
+// Ensuite seulement, déclare tes routes :
+app.use('/', homeRoutes);
+
+// Configuration de base
+app.set('view engine', 'twig');
+app.set('views', './src/views');
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 
 // Routes avec gestion d'erreurs
 app.use((req, res, next) => {
@@ -44,7 +47,30 @@ app.use(mainRoutes);
 app.use(RHRoutes);
 app.use('/ordinateurs', authguard, ordinateurRoutes);
 
+app.use('/employes', authguard, employeRoutes);
+
+
+app.get('/', (req, res) => {
+  res.render('index', { title: 'Accueil' });
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', { title: 'À propos' });
+});
+
+app.get('/contact', (req, res) => {
+  res.render('contact', { title: 'Contact' });
+});
+
+app.post('/contact', (req, res) => {
+  const { name, email, message } = req.body;
+  // Ici, vous pouvez traiter les données du formulaire, comme les envoyer par e-mail
+  console.log(`Nom: ${name}, Email: ${email}, Message: ${message}`);
+  res.redirect('/');
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });
+
