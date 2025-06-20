@@ -6,7 +6,6 @@ model ordinateurs {
   disponible  Boolean   @default(true)
   statut      String    @default("Disponible")
   employeId   Int?
-  rhId        Int
   employe     employe?  @relation(fields: [employeId], references: [id])
-  rh          RH        @relation(fields: [rhId], references: [id])
+ 
 }

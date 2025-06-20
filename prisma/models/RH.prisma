@@ -6,5 +6,5 @@ model RH {
   password      String
   siret         String
   employes      employe[]
-  ordinateurs   ordinateurs[]
+ 
 }

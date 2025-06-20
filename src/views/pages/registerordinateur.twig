@@ -1,72 +1,98 @@
 {% extends "../layouts/base.twig" %}
 
 {% block title %}
-    <title>Enregistrer un ordinateur</title>
+	<title>Enregistrer un ordinateur</title>
 {% endblock %}
 
 {% block main %}
-<div class="min-h-screen flex items-center justify-center py-16 px-4">
-    <div class="max-w-2xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
-        <h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Projet RH</h1>
-        <h2 class="text-3xl text-center text-[#a89682] mb-12">Ajouter un ordinateur</h2>
+	<div class="min-h-screen flex items-center justify-center py-16 px-4">
+		<div class="max-w-2xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
+			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Projet RH</h1>
+			<h2 class="text-3xl text-center text-[#a89682] mb-12">Ajouter un ordinateur</h2>
 
-        {% if error %}
-            <div class="bg-red-100/10 text-red-400 p-4 rounded-lg mb-6 text-center">
-                {{ error }}
-            </div>
-        {% endif %}
+			{% if error %}
+				<div class="bg-red-100/10 text-red-400 p-4 rounded-lg mb-6 text-center">
+					{{ error }}
+				</div>
+			{% endif %}
 
-        <form method="post" action="/ordinateurs/register" class="space-y-8">
-            <div class="space-y-3">
-                <label for="nom" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2">
-                    Nom de l'ordinateur
-                </label>
-                <input type="text" 
-                       name="nom" 
-                       id="nom" 
-                       required 
-                       class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] 
-                              bg-[#2a2a33] text-[#d6bfa7] p-5
-                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] 
-                              placeholder-[#8b7355]">
-            </div>
+			<form method="post" action="/ordinateurs/register" class="space-y-8">
+				<div class="space-y-3">
+					<label for="macAddress" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2">
+						Adresse MAC
+					</label>
+					<input type="text" name="macAddress" id="macAddress" required placeholder="AA:BB:CC:DD:EE:FF" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+					                              bg-[#2a2a33] text-[#d6bfa7] p-5
+					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+					                              placeholder-[#8b7355]">
+				</div>
 
-            <div class="space-y-3">
-                <label for="marque" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2">
-                    Marque
-                </label>
-                <input type="text" 
-                       name="marque" 
-                       id="marque" 
-                       required 
-                       class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] 
-                              bg-[#2a2a33] text-[#d6bfa7] p-5
-                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] 
-                              placeholder-[#8b7355]">
-            </div>
+				<div class="space-y-3">
+					<label for="marque" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2">
+						Marque
+					</label>
+					<input type="text" name="marque" id="marque" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+					                              bg-[#2a2a33] text-[#d6bfa7] p-5
+					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+					                              placeholder-[#8b7355]">
+				</div>
 
-            <div class="space-y-3">
-                <label for="type" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2">
-                    Type
-                </label>
-                <input type="text" 
-                       name="type" 
-                       id="type" 
-                       required 
-                       class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] 
-                              bg-[#2a2a33] text-[#d6bfa7] p-5
-                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] 
-                              placeholder-[#8b7355]">
-            </div>
+				<div class="space-y-3">
+					<label for="modele" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2">
+						Modèle
+					</label>
+					<input type="text" name="modele" id="modele" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+					                              bg-[#2a2a33] text-[#d6bfa7] p-5
+					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+					                              placeholder-[#8b7355]">
+				</div>
 
-            <button type="submit"
-                    class="w-full bg-[#d6bfa7] text-[#23232a] font-bold text-xl py-5 px-8 rounded-xl
-                           hover:bg-[#bfa888] transform hover:scale-[1.02]
-                           transition-all duration-200 ease-in-out
-                           shadow-lg hover:shadow-xl mt-8">
-                Enregistrer
-            </button>
-        </form>
-    </div>
-</div>
+				<div class="space-y-3">
+					<label for="statut" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2">
+						Statut
+					</label>
+					<input type="text" name="statut" id="statut" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+					                              bg-[#2a2a33] text-[#d6bfa7] p-5
+					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+					                              placeholder-[#8b7355]">
+				</div>
+
+				<div class="space-y-3">
+					<label for="disponible" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2">
+						Disponible
+					</label>
+					<select id="disponible" name="disponible" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+							                           bg-[#2a2a33] text-[#d6bfa7] p-5
+							                           focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+							                           placeholder-[#8b7355]">
+						<option value="true">Oui</option>
+						<option value="false">Non</option>
+					</select>
+				</div>
+
+				<div class="space-y-3">
+					<label for="employeId" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2">
+						Attribuer à un employé
+					</label>
+					<select id="employeId" name="employeId" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+							                           bg-[#2a2a33] text-[#d6bfa7] p-5
+							                           focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+							                           placeholder-[#8b7355]">
+						<option value="">Aucun</option>
+						{% for employe in employes %}
+							<option value="{{ employe.id }}">{{ employe.nom }}
+								{{ employe.prenom }}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<button type="submit" class="w-full bg-[#d6bfa7] text-[#23232a] font-bold text-xl py-5 px-8 rounded-xl
+						                           hover:bg-[#bfa888] transform hover:scale-[1.02]
+						                           transition-all duration-200 ease-in-out
+						                           shadow-lg hover:shadow-xl mt-8">
+					Enregistrer
+				</button>
+			</form>
+		</div>
+	</div>
 {% endblock %}

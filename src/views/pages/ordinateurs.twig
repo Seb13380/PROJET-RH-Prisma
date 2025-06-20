@@ -1,16 +1,50 @@
 {% extends "../layouts/base.twig" %}
 
-{% block title %}Ajouter un employé
-{% endblock %}
 
 {% block main %}
 	<div class="min-h-screen flex items-center justify-center py-16 px-4">
-		<div class="max-w-xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
+		<div class="max-w-3xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
 			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Projet RH</h1>
-			<h2 class="text-3xl text-center text-[#a89682] mb-12">Ajouter un employé</h2>
-			<form
-				method="post" action="/employes/register" class="space-y-8"><!-- Champs du formulaire ici -->
-			</form>
+			<h2 class="text-3xl text-center text-[#a89682] mb-12">Liste des ordinateurs</h2>
+
+			{% if error %}
+				<div class="bg-red-100/10 text-red-400 p-4 rounded-lg mb-6 text-center">
+					{{ error }}
+				</div>
+			{% endif %}
+
+			{% if ordinateurs and ordinateurs|length > 0 %}
+				<ul class="space-y-6">
+					{% for ordi in ordinateurs %}
+						<li class="bg-[#2a2a33] rounded-xl p-6 border-2 border-[#d6bfa7]">
+							<div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+								<div>
+									<span class="font-semibold text-[#d6bfa7] text-xl">{{ ordi.marque }}
+										{{ ordi.modele }}</span>
+									<div class="text-[#a89682] text-lg">MAC :
+										{{ ordi.macAddress }}</div>
+									<div class="text-[#a89682] text-lg">Statut :
+										{{ ordi.statut.employe }}</div>
+								</div>
+								{% if ordi.disponible %}
+									<span class="inline-block px-4 py-2 rounded-xl bg-green-700 text-[#d6bfa7] font-bold">Disponible</span>
+								{% else %}
+									<span class="inline-block px-4 py-2 rounded-xl bg-red-700 text-[#d6bfa7] font-bold">Indisponible</span>
+								{% endif %}
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<p class="text-center text-[#a89682] text-xl">Aucun ordinateur enregistré.</p>
+			{% endif %}
+
+			<a href="/ordinateurs/register" class="block w-full bg-[#d6bfa7] text-[#23232a] font-bold text-xl py-6 px-8 rounded-xl min-h-[4rem]
+					                  hover:bg-[#bfa888] transform hover:scale-[1.02]
+					                  transition-all duration-200 ease-in-out
+					                  shadow-lg hover:shadow-xl mt-12 text-center">
+				+ Ajouter un ordinateur
+			</a>
 		</div>
 	</div>
 {% endblock %}

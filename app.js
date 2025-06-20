@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const session = require("express-session");
 const employeRoutes = require('./src/routes/employeRoutes');
 
-// Chargement des variables d'environnement
+
 const result = dotenv.config();
 if (result.error) {
   console.error("Erreur de chargement du fichier .env");
@@ -39,15 +39,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes avec gestion d'erreurs
 app.use((req, res, next) => {
-  console.log('Session:', req.session);
   next();
 });
 
 app.use(mainRoutes);
 app.use(RHRoutes);
-app.use('/ordinateurs', authguard, ordinateurRoutes);
-
-app.use('/employes', authguard, employeRoutes);
+app.use('/ordinateurs', ordinateurRoutes);
+app.use('/employes', employeRoutes);
 
 
 app.get('/', (req, res) => {
@@ -65,7 +63,6 @@ app.get('/contact', (req, res) => {
 app.post('/contact', (req, res) => {
   const { name, email, message } = req.body;
   // Ici, vous pouvez traiter les données du formulaire, comme les envoyer par e-mail
-  console.log(`Nom: ${name}, Email: ${email}, Message: ${message}`);
   res.redirect('/');
 });
 

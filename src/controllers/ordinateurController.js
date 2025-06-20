@@ -3,58 +3,62 @@ const prisma = new PrismaClient();
 
 exports.listOrdinateurs = async (req, res) => {
     try {
-        const ordinateurs = await prisma.ordinateur.findMany();
+        const ordinateurs = await prisma.ordinateurs.findMany();
         res.render('pages/ordinateurs', {
             ordinateurs,
-            RH: req.session.RH
         });
     } catch (error) {
-        console.error(error);
         res.status(500).render('pages/ordinateurs', {
             error: 'Erreur lors du chargement des ordinateurs',
             ordinateurs: [],
-            RH: req.session.RH
         });
     }
 };
 
 exports.showRegisterForm = async (req, res) => {
     try {
-        res.render('pages/registerOrdinateur', {
-            RH: req.session.RH
-        });
+        const employes = await prisma.employe.findMany();
+        res.render('pages/registerOrdinateur', { employes });
     } catch (error) {
-        console.error(error);
         res.redirect('/ordinateurs');
     }
 };
 
 exports.registerOrdinateur = async (req, res) => {
     try {
-        const { macAddress, marque, modele } = req.body;
+        const { macAddress, marque, modele, disponible, statut, employeId } = req.body;
 
         const macRegex = /^([0-9A-Fa-f]{2}[:-]?){5}([0-9A-Fa-f]{2})$/;
         if (!macRegex.test(macAddress)) {
-            throw new Error('Format d\'adresse MAC invalide');
+            return res.render('pages/registerOrdinateur', {
+                error: "Format d'adresse MAC invalide",
+            });
         }
 
-        const normalizedMacAddress = macAddress.replace(/[:-]/g, '').toUpperCase();
 
         await prisma.ordinateurs.create({
             data: {
-                macAddress: normalizedMacAddress,
+                macAddress: macAddress,
                 marque,
                 modele,
-                rhId: req.session.RH.id
+                disponible: disponible === "true" || disponible === true,
+                statut,
+                employeId: employeId ? parseInt(employeId) : null
             }
         });
 
         res.redirect('/ordinateurs');
     } catch (error) {
-        console.error('Erreur détaillée lors de l\'enregistrement de l\'ordinateur :', error);
+        console.log(error);
+        
+        let message = "Erreur lors de l'enregistrement de l'ordinateur";
+        if (error.code === 'P2002') {
+            message = "Cette adresse MAC existe déjà.";
+        }
         res.render('pages/registerOrdinateur', {
-            error: "Erreur lors de l'enregistrement de l'ordinateur",
-            RH: req.session.RH
+            error: message,
         });
     }
 };
+
+

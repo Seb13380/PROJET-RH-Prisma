@@ -1,7 +1,7 @@
 const { PrismaClient } = require("../../generated/prisma")
 const hashPasswordExtension = require("../services/extensions/hashPasswordExtension")
 const bcrypt = require("bcrypt")
-const twig = require('twig');
+
 
 const prisma = new PrismaClient({}).$extends(hashPasswordExtension)
 
@@ -58,7 +58,7 @@ exports.getLogout = (req, res) => {
             console.error("Erreur lors de la déconnexion :", err)
             return res.status(500).send("Erreur lors de la déconnexion")
         }
-        res.redirect("/login")
+        res.redirect("/login");
     })
 }
 
@@ -82,10 +82,17 @@ exports.listEmployes = async (req, res) => {
 };
 
 exports.addEmploye = async (req, res) => {
-    const { nom, prenom, mail, password, age, genre } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+       
     await prisma.employe.create({
-        data: { nom, prenom, mail, password: hashedPassword, age: age ? Number(age) : null, genre }
+        data: {
+            nom: req.body.nom,
+            prenom: req.body.prenom,
+            mail: req.body.mail,
+            password: req.body.password,
+            age: req.body.age ? Number(req.body.age) : null,
+            genre: req.body.genre,
+            rhId: req.session.RH.id
+         }
     });
     res.redirect('/employes');
 };

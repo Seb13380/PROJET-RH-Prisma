@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 exports.listEmployes = async (req, res) => {
     try {
         const employes = await prisma.employe.findMany();
-        
+
         res.render('pages/employes.twig', {
             employes,
             RH: req.session.RH
@@ -24,18 +24,6 @@ exports.getEmployeRegister = (req, res) => {
     res.render('pages/registerEmploye');
 };
 
-exports.postEmployeRegister = async (req, res) => {
-    try {
-        const { nom, prenom, mail, password, age, genre } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await prisma.employe.create({
-            data: { nom, prenom, mail, password: hashedPassword, age: age ? Number(age) : null, genre }
-        });
-        res.redirect('/employes');
-    } catch (error) {
-        res.render('pages/registerEmploye', { error });
-    }
-};
 
 exports.editEmploye = async (req, res) => {
     try {
@@ -59,41 +47,44 @@ exports.deleteEmploye = async (req, res) => {
     }
 };
 
-exports.showRegisterForm = async (req, res) => {
-    try {
-        res.render('pages/registerEmploye', { RH: req.session.RH });
-    } catch (error) {
-        console.error(error);
-        res.redirect('/employes');
-    }
+exports.showRegisterForm = (req, res) => {
+    res.render('pages/registerEmploye', {
+        RH: req.session.RH
+    });
 };
 
 exports.registerEmploye = async (req, res) => {
     try {
-        const { nom, prenom, mail, genre } = req.body;
+        const { nom, prenom, mail, poste, genre } = req.body;
 
-        if (!nom || !prenom || !mail || !genre) {
+        // Vérification des champs obligatoires
+        if (!nom || !prenom || !mail || !poste || !genre) {
             return res.render('pages/registerEmploye', {
                 error: "Tous les champs sont obligatoires",
                 RH: req.session.RH
             });
         }
 
-        const newEmploye = await prisma.employe.create({
+        // Création de l'employé
+        await prisma.employe.create({
             data: {
                 nom,
                 prenom,
                 mail,
+                poste,
                 genre,
-                rhId: req.session.RH.id
+                rhId: parseInt(req.session.RH.id)
             }
         });
 
         res.redirect('/employes');
     } catch (error) {
-        console.error('Erreur détaillée:', error);
+        let message = "Erreur lors de l'ajout de l'employé";
+        if (error.code === 'P2002') {
+            message = "Cet email existe déjà.";
+        }
         res.render('pages/registerEmploye', {
-            error: "Erreur lors de l'ajout de l'employé",
+            error: message,
             RH: req.session.RH
         });
     }
