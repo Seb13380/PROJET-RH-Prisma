@@ -1,55 +1,66 @@
 {% extends "../layouts/base.twig" %}
 
 {% block title %}
-    <title>Accueil Ressources Humaines</title>
+	<title>Accueil Ressources Humaines</title>
 {% endblock %}
 
 {% block main %}
-<div class="min-h-screen flex flex-col items-center justify-center py-16 px-4 gap-12">
-    <div class="max-w-4xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7] mb-12">
-        <h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Projet RH</h1>
-        <h2 class="text-3xl text-center text-[#a89682] mb-12">Bienvenue sur votre espace RH</h2>
-        <div class="text-center text-[#d6bfa7] text-xl">
-            <p class="mb-6">Gérez vos employés et vos ressources informatiques en toute simplicité.</p>
-        </div>
-    </div>
+	<div class="min-h-screen flex flex-col items-center justify-center py-16 px-4 gap-12">
+		<div class="max-w-xl w-full bg-[#2d2d2d]/60 rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7] mb-12">
+			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8" style="font-family: 'Times New Roman', Times, serif;">
+				RH Digital
+			</h1>
+			<h2 class="text-3xl text-center text-[#a89682] mb-12">Bienvenue sur votre espace RH</h2>
+			<div class="text-center text-[#d6bfa7] text-xl">
+				<p class="mb-6">Gérez vos employés et vos ressources informatiques en toute simplicité.</p>
+			</div>
+		</div>
 
-    <div class="max-w-4xl w-full grid md:grid-cols-2 gap-12">
+		<div class="max-w-4xl w-full grid md:grid-cols-2 gap-12">
 
-        <div class="bg-[#23232a] rounded-2xl shadow-xl p-8 border-2 border-[#d6bfa7]">
-            <h3 class="text-2xl font-bold text-[#d6bfa7] mb-6 text-center">Employés</h3>
-            {% if employes and employes|length > 0 %}
-                <ul class="space-y-4">
-                    {% for employe in employes %}
-                        <li class="bg-[#2a2a33] rounded-xl p-4 border border-[#a89682]">
-                            <span class="font-semibold">{{ employe.nom }} {{ employe.prenom }}</span>
-                            <span class="block text-[#a89682]">{{ employe.poste }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p class="text-center text-[#a89682]">Aucun employé enregistré.</p>
-            {% endif %}
-        </div>
+			<div class="bg-[#2d2d2d] rounded-2xl shadow-xl p-8 border-2 border-[#d6bfa7]">
+				<h3 class="text-2xl font-bold text-[#d6bfa7] mb-6 text-center">Employés</h3>
+				{% if employes and employes|length > 0 %}
+					<ul class="space-y-6 animate-fade-in">
+						{% for employe in employes %}
+							<li class="rounded-xl p-4 border border-[#a89682] text-center transition-transform duration-200 hover:scale-[1.02] hover:shadow-xl">
+								<span class="font-semibold">
+									{{ employe.prenom }}
+									{{ employe.nom }}</span>
+								<span class="block text-[#a89682]">{{ employe.poste }}</span>
+								<span class="block text-[#a89682]">Genre :
+									{{ employe.genre }}</span>
+								<span class="block text-[#a89682]">Email :
+									{{ employe.mail }}</span>
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p class="text-center text-[#a89682]">Aucun employé enregistré.</p>
+				{% endif %}
+			</div>
 
-        <div class="bg-[#23232a] rounded-2xl shadow-xl p-8 border-2 border-[#d6bfa7]">
-            <h3 class="text-2xl font-bold text-[#d6bfa7] mb-6 text-center">Ordinateurs</h3>
-            {% if ordinateurs and ordinateurs|length > 0 %}
-                <ul class="space-y-4">
-                    {% for ordi in ordinateurs %}
-                        <li class="bg-[#2a2a33] rounded-xl p-4 border border-[#a89682]">
-                            <span class="font-semibold">{{ ordi.marque }} {{ ordi.modele }}</span>
-                            <span class="block text-[#a89682]">MAC : {{ ordi.macAddress }}</span>
-                            <span class="block text-[#a89682]">Statut : {{ ordi.statut }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p class="text-center text-[#a89682]">Aucun ordinateur enregistré.</p>
-            {% endif %}
-        </div>
-    </div>
-</div>
+			<div class="bg-[#2d2d2d] rounded-2xl shadow-xl p-8 border-2 border-[#d6bfa7]">
+				<h3 class="text-2xl font-bold text-[#d6bfa7] mb-6 text-center">Ordinateurs</h3>
+				{% if ordinateurs and ordinateurs|length > 0 %}
+					<ul class="space-y-6 animate-fade-in">
+						{% for ordi in ordinateurs %}
+							<li class="rounded-xl p-4 border border-[#a89682] text-center transition-transform duration-200 hover:scale-[1.02] hover:shadow-xl">
+								<span class="font-semibold">{{ ordi.marque }}
+									{{ ordi.modele }}</span>
+								<span class="block text-[#a89682]">MAC :
+									{{ ordi.macAddress }}</span>
+								<span class="block text-[#a89682]">Statut :
+									{{ ordi.statut }}</span>
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p class="text-center text-[#a89682]">Aucun ordinateur enregistré.</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 {% endblock %}
 
 const { PrismaClient } = require('@prisma/client');

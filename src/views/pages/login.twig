@@ -3,53 +3,38 @@
 {% block main %}
 	<div class="min-h-screen flex items-center justify-center py-16 px-4">
 		<div
-			class="max-w-2xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
-			<!-- Titre -->
-			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Projet RH</h1>
+			class="max-w-2xl w-full bg-[#2d2d2d] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
+			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8" style="font-family: 'Times New Roman', Times, serif;">
+				RH Digital
+			</h1>
 			<h2 class="text-3xl text-center text-[#a89682] mb-12">Connexion</h2>
-			
-			<!-- Formulaire -->
+
 			<form
 				method="post" action="/login" class="space-y-8">
-				<!-- Email -->
 				<div class="space-y-3">
 					<label for="mail" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2">
 						Adresse email
 					</label>
-					<input type="email" 
-                       name="mail" 
-                       id="mail" 
-                       required 
-                       placeholder="exemple@email.com"
-                       class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] 
-                              bg-[#2a2a33] text-[#d6bfa7] p-5
-                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] 
-                              placeholder-[#8b7355]
-                              transition duration-200">
+					<input type="email" name="mail" id="mail" required placeholder="exemple@email.com" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+										                              bg-[#2d2d2d] text-[#d6bfa7] p-5
+										                              focus:ring-4 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] transition-all duration-200
+										                              placeholder-[#8b7355]">
 				</div>
 
-				<!-- Mot de passe -->
 				<div class="space-y-3">
 					<label for="password" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-2">
 						Mot de passe
 					</label>
-					<input type="password" 
-                       name="password" 
-                       id="password" 
-                       required
-                       class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] 
-                              bg-[#2a2a33] text-[#d6bfa7] p-5
-                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] 
-                              placeholder-[#8b7355]
-                              transition duration-200">
+					<input type="password" name="password" id="password" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
+										                              bg-[#2d2d2d] text-[#d6bfa7] p-5
+										                              focus:ring-4 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] transition-all duration-200
+										                              placeholder-[#8b7355]">
 				</div>
 
-				<!-- Bouton de connexion -->
-				<button type="submit"
-                    class="w-full bg-[#d6bfa7] text-[#23232a] font-bold text-xl py-5 px-8 rounded-xl
-                           hover:bg-[#bfa888] transform hover:scale-[1.02]
-                           transition-all duration-200 ease-in-out
-                           shadow-lg hover:shadow-xl mt-8">
+				<button type="submit" class="w-full bg-[#d6bfa7] text-[#2d2d2d] font-bold text-xl py-5 px-8 rounded-xl
+												                           hover:bg-[#bfa888] transform hover:scale-[1.02]
+												                           transition-all duration-200 ease-in-out
+												                           shadow-lg hover:shadow-xl mt-8">
 					Se connecter
 				</button>
 			</form>
@@ -57,4 +42,4 @@
 	</div>
 {% endblock %}
 
-<body class="min-h-screen bg-[#18181b]">
+<body class="min-h-screen bg-[#18181b]"></body>

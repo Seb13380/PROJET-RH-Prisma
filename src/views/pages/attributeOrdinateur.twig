@@ -1,0 +1,26 @@
+{% extends "../layouts/base.twig" %}
+
+{% block main %}
+	<div class="min-h-screen flex items-center justify-center py-16 px-4">
+		<div class="max-w-xl w-full bg-[#2d2d2d] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
+			<h1 class="text-4xl font-bold text-center text-[#d6bfa7] mb-8">Attribuer un ordinateur</h1>
+			<form method="post" action="/ordinateurs/attribute/{{ ordinateur.id }}" class="space-y-8">
+				<div class="space-y-4">
+					<label for="employeId" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Choisir un employé</label>
+					<select id="employeId" name="employeId" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem]">
+						<option value="">Aucun</option>
+						{% for employe in employes %}
+							<option value="{{ employe.id }}" {% if ordinateur.employeId == employe.id %} selected {% endif %}>
+								{{ employe.nom }}
+								{{ employe.prenom }}
+							</option>
+						{% endfor %}
+					</select>
+				</div>
+				<button class="btn w-full bg-[#d6bfa7] text-[#2d2d2d] font-bold text-xl py-6 px-8 rounded-xl min-h-[4rem] transition-colors duration-200 hover:bg-[#bfa888] hover:text-[#23232a] shadow-lg hover:shadow-xl mt-8">
+					Attribuer
+				</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}

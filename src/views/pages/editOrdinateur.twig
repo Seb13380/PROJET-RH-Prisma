@@ -1,0 +1,47 @@
+{% extends "../layouts/base.twig" %}
+
+{% block main %}
+	<div class="min-h-screen flex items-center justify-center py-16 px-4">
+		<div class="max-w-xl w-full bg-[#2d2d2d] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
+			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Modifier un ordinateur</h1>
+			<form method="post" action="/ordinateurs/edit/{{ ordinateur.id }}" class="space-y-8">
+				<div class="space-y-4">
+					<label for="macAddress" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Adresse MAC</label>
+					<input type="text" id="macAddress" name="macAddress" required value="{{ ordinateur.macAddress }}" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem] focus:ring-4 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] transition-all duration-200 placeholder-[#8b7355]">
+				</div>
+				<div class="space-y-4">
+					<label for="marque" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Marque</label>
+					<input type="text" id="marque" name="marque" required value="{{ ordinateur.marque }}" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem] focus:ring-4 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] transition-all duration-200 placeholder-[#8b7355]">
+				</div>
+				<div class="space-y-4">
+					<label for="modele" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Modèle</label>
+					<input type="text" id="modele" name="modele" required value="{{ ordinateur.modele }}" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem] focus:ring-4 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] transition-all duration-200 placeholder-[#8b7355]">
+				</div>
+				<div class="space-y-4">
+					<label for="statut" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Statut</label>
+					<input type="text" id="statut" name="statut" required value="{{ ordinateur.statut }}" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem] focus:ring-4 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] transition-all duration-200 placeholder-[#8b7355]">
+				</div>
+				<div class="space-y-4">
+					<label for="disponible" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Disponible</label>
+					<select id="disponible" name="disponible" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem] focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] placeholder-[#8b7355]">
+						<option value="true" {% if ordinateur.disponible %} selected {% endif %}>Oui</option>
+						<option value="false" {% if not ordinateur.disponible %} selected {% endif %}>Non</option>
+					</select>
+				</div>
+				<div class="space-y-4">
+					<label for="employeId" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Employé attribué</label>
+					<select id="employeId" name="employeId" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem] focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] placeholder-[#8b7355]">
+						<option value="">Aucun</option>
+						{% for employe in employes %}
+							<option value="{{ employe.id }}" {% if ordinateur.employeId == employe.id %} selected {% endif %}>{{ employe.nom }}
+								{{ employe.prenom }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<button class="btn w-full bg-[#d6bfa7] text-[#2d2d2d] font-bold text-xl py-6 px-8 rounded-xl min-h-[4rem] transition-colors duration-200 hover:bg-[#bfa888] hover:text-[#23232a] shadow-lg hover:shadow-xl mt-8">
+					Enregistrer les modifications
+				</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}

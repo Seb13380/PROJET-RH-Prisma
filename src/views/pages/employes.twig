@@ -2,10 +2,11 @@
 
 {% block main %}
 	<div class="min-h-screen flex items-center justify-center py-16 px-4">
-		<div
-			class="max-w-xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
+		<div class="max-w-xl w-full bg-[#2d2d2d]/80 rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
 
-			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Projet RH</h1>
+			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8" style="font-family: 'Times New Roman', Times, serif;">
+				RH Digital
+			</h1>
 			<h2 class="text-3xl text-center text-[#a89682] mb-12">Liste des employés</h2>
 
 			{% if error %}
@@ -14,24 +15,49 @@
 				</div>
 			{% endif %}
 
+			<form method="get" action="/employes" class="mb-8 flex flex-wrap gap-4 items-center justify-center">
+				<input type="text" name="q" placeholder="Nom, prénom ou email" class="input input-bordered w-64 focus:ring-4 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] transition-all duration-200" value="{{ q|default('') }}">
+				<select name="poste" class="select select-bordered">
+					<option value="">Tous les postes</option>
+					<option value="dev" {% if poste == 'dev' %} selected {% endif %}>Développeur</option>
+					<option value="rh" {% if poste == 'rh' %} selected {% endif %}>RH</option>
+
+				</select>
+				<select name="genre" class="select select-bordered">
+					<option value="">Tous genres</option>
+					<option value="homme" {% if genre == 'homme' %} selected {% endif %}>Homme</option>
+					<option value="femme" {% if genre == 'femme' %} selected {% endif %}>Femme</option>
+					<option value="autre" {% if genre == 'autre' %} selected {% endif %}>Autre</option>
+				</select>
+				<button type="submit" class="btn btn-primary">Rechercher</button>
+			</form>
+
 			<div class="space-y-6">
 				{% for employe in employes %}
-					<div class="bg-[#2a2a33] p-6 rounded-xl border-2 border-[#d6bfa7]">
-						<h3 class="text-2xl font-medium text-[#d6bfa7] mb-2">{{ employe.nom }}
-							{{ employe.prenom }}</h3>
-						<p class="text-xl text-[#a89682]">{{ employe.poste }}</p>
-						<p class="text-lg text-[#a89682]">{{ employe.mail }}</p>
-						<p class="text-lg text-[#a89682]">{{ employe.genre }}</p>
+					<div class="bg-[##2d2d2d] p-6 rounded-xl border-2 border-[#d6bfa7] flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+						<div>
+							<h3 class="text-2xl font-medium text-[#d6bfa7] mb-2">{{ employe.nom }}
+								{{ employe.prenom }}</h3>
+							<p class="text-xl text-[#a89682]">{{ employe.poste }}</p>
+							<p class="text-lg text-[#a89682]">{{ employe.mail }}</p>
+							<p class="text-lg text-[#a89682]">{{ employe.genre }}</p>
+						</div>
+						<div class="flex gap-4">
+							<a href="/employes/edit/{{ employe.id }}" class="btn btn-warning">Modifier</a>
+							<form method="post" action="/employes/delete/{{ employe.id}}" onsubmit="return confirm('Supprimer cet employé ?');">
+								<button type="submit" class="btn btn-error">Supprimer</button>
+							</form>
+						</div>
 					</div>
 				{% else %}
 					<p class="text-xl text-center text-[#a89682]">Aucun employé trouvé</p>
 				{% endfor %}
 			</div>
 
-			<a href="/employes/register" class="block w-full bg-[#d6bfa7] text-[#23232a] font-bold text-xl py-6 px-8 rounded-xl min-h-[4rem]
-															                  hover:bg-[#bfa888] transform hover:scale-[1.02]
-															                  transition-all duration-200 ease-in-out
-															                  shadow-lg hover:shadow-xl mt-8 text-center">
+			<a href="/employes/register" class="block w-full bg-[#d6bfa7] text-[#2d2d2d] font-bold text-xl py-6 px-8 rounded-xl min-h-[4rem]
+																																																							                  hover:bg-[#bfa888] transform hover:scale-[1.02]
+																																																							                  transition-all duration-200 ease-in-out
+																																																							                  shadow-lg hover:shadow-xl mt-8 text-center">
 				+ Nouvel employé
 			</a>
 		</div>

@@ -5,12 +5,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="/assets/css/tailwind.css" rel="stylesheet"> {% block title %}{% endblock %}
 		<link rel="stylesheet" href="/assets/css/style.css">
+
 	</head>
-	<body class="min-h-screen bg-[#18181b] text-[#d6bfa7] flex flex-col antialiased">
+	<body class="min-h-screen bg-gradient-to-tr from-[#292928] via-[#2d2d2d] to-[#d6bfa7] text-[#8B6B4A] flex flex-col antialiased">
 		{% include "../partials/header.twig" %}
 		<main class="flex-1"> {% block main %}{% endblock %}
 			</main>
-			<div style="gap:100px;display:flex"></div>
+
 			{% include "../partials/footer.twig" %}
 		</body>
 	</html>

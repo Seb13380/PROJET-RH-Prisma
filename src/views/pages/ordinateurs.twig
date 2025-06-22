@@ -1,11 +1,22 @@
 {% extends "../layouts/base.twig" %}
 
-
 {% block main %}
 	<div class="min-h-screen flex items-center justify-center py-16 px-4">
-		<div class="max-w-3xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
-			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Projet RH</h1>
+		<div class="max-w-3xl w-full bg-[#2d2d2d] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
+			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8" style="font-family: 'Times New Roman', Times, serif;">
+				RH Digital
+			</h1>
 			<h2 class="text-3xl text-center text-[#a89682] mb-12">Liste des ordinateurs</h2>
+
+			<form method="get" action="/ordinateurs" class="mb-8 flex flex-wrap gap-4 items-center justify-center">
+				<input type="text" name="q" placeholder="Marque, modèle ou MAC" class="input input-bordered w-64" value="{{ q|default('') }}">
+				<select name="disponible" class="select select-bordered">
+					<option value="">Tous</option>
+					<option value="true" {% if disponible == 'true' %} selected {% endif %}>Disponible</option>
+					<option value="false" {% if disponible == 'false' %} selected {% endif %}>Indisponible</option>
+				</select>
+				<button type="submit" class="btn btn-primary">Rechercher</button>
+			</form>
 
 			{% if error %}
 				<div class="bg-red-100/10 text-red-400 p-4 rounded-lg mb-6 text-center">
@@ -14,23 +25,37 @@
 			{% endif %}
 
 			{% if ordinateurs and ordinateurs|length > 0 %}
-				<ul class="space-y-6">
+				<ul class="space-y-6 animate-fade-in">
 					{% for ordi in ordinateurs %}
-						<li class="bg-[#2a2a33] rounded-xl p-6 border-2 border-[#d6bfa7]">
-							<div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-								<div>
-									<span class="font-semibold text-[#d6bfa7] text-xl">{{ ordi.marque }}
-										{{ ordi.modele }}</span>
-									<div class="text-[#a89682] text-lg">MAC :
-										{{ ordi.macAddress }}</div>
-									<div class="text-[#a89682] text-lg">Statut :
-										{{ ordi.statut.employe }}</div>
+						<li class="bg-[##2d2d2d] rounded-xl p-6 border-2 border-[#d6bfa7] flex flex-col md:flex-row md:justify-between md:items-center gap-4 transition-transform duration-200 hover:scale-[1.02] hover:shadow-xl">
+							<div>
+								<span class="font-semibold text-[#d6bfa7] text-xl">{{ ordi.marque }}
+									{{ ordi.modele }}</span>
+								<div class="text-[#a89682] text-lg">MAC :
+									{{ ordi.macAddress }}</div>
+								<div class="text-[#a89682] text-lg">Statut :
+									{{ ordi.statut }}</div>
+								<div class="text-[#a89682] text-lg">
+									Attribué à :
+									{% if ordi.employe %}
+										{{ ordi.employe.nom }}
+										{{ ordi.employe.prenom }}
+									{% else %}
+										Aucun
+									{% endif %}
 								</div>
-								{% if ordi.disponible %}
-									<span class="inline-block px-4 py-2 rounded-xl bg-green-700 text-[#d6bfa7] font-bold">Disponible</span>
-								{% else %}
-									<span class="inline-block px-4 py-2 rounded-xl bg-red-700 text-[#d6bfa7] font-bold">Indisponible</span>
-								{% endif %}
+								<div class="text-[#a89682] text-lg">
+									Disponible :
+									{{ ordi.disponible ? 'Oui' : 'Non' }}
+								</div>
+							</div>
+							<div class="flex gap-4 mt-4 md:mt-0">
+								<a href="/ordinateurs/attribute/{{ ordi.id }}" class="btn btn-primary">Attribuer</a>
+								<a href="/ordinateurs/edit/{{ ordi.id }}" class="btn btn-warning">Modifier</a>
+								<form method="post" action="/ordinateurs/delete/{{ ordi.id }}" onsubmit="return confirm('Supprimer cet ordinateur ?');">
+									<button type="submit" class="btn btn-error">Supprimer</button>
+								</form>
+
 							</div>
 						</li>
 					{% endfor %}
@@ -39,10 +64,10 @@
 				<p class="text-center text-[#a89682] text-xl">Aucun ordinateur enregistré.</p>
 			{% endif %}
 
-			<a href="/ordinateurs/register" class="block w-full bg-[#d6bfa7] text-[#23232a] font-bold text-xl py-6 px-8 rounded-xl min-h-[4rem]
-					                  hover:bg-[#bfa888] transform hover:scale-[1.02]
-					                  transition-all duration-200 ease-in-out
-					                  shadow-lg hover:shadow-xl mt-12 text-center">
+			<a href="/ordinateurs/register" class="block w-full bg-[#d6bfa7] text-[#2d2d2d] font-bold text-xl py-6 px-8 rounded-xl min-h-[4rem]
+																																																																																					                  hover:bg-[#bfa888] transform hover:scale-[1.02]
+																																																																																					                  transition-all duration-200 ease-in-out
+																																																																																					                  shadow-lg hover:shadow-xl mt-12 text-center">
 				+ Ajouter un ordinateur
 			</a>
 		</div>

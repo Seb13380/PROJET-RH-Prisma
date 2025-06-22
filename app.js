@@ -28,16 +28,13 @@ app.use(session({
   }
 }));
 
-// Ensuite seulement, déclare tes routes :
 app.use('/', homeRoutes);
 
-// Configuration de base
 app.set('view engine', 'twig');
 app.set('views', './src/views');
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
-// Routes avec gestion d'erreurs
 app.use((req, res, next) => {
   next();
 });
@@ -62,7 +59,7 @@ app.get('/contact', (req, res) => {
 
 app.post('/contact', (req, res) => {
   const { name, email, message } = req.body;
-  // Ici, vous pouvez traiter les données du formulaire, comme les envoyer par e-mail
+ 
   res.redirect('/');
 });
 

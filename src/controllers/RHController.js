@@ -71,7 +71,6 @@ exports.listEmployes = async (req, res) => {
                 prenom: true,
                 mail: true,
                 genre: true,
-                age: true
             }
         });
         res.render('pages/employes', { employes });
@@ -89,7 +88,6 @@ exports.addEmploye = async (req, res) => {
             prenom: req.body.prenom,
             mail: req.body.mail,
             password: req.body.password,
-            age: req.body.age ? Number(req.body.age) : null,
             genre: req.body.genre,
             rhId: req.session.RH.id
          }
@@ -98,10 +96,10 @@ exports.addEmploye = async (req, res) => {
 };
 
 exports.editEmploye = async (req, res) => {
-    const { nom, prenom, mail, age, genre } = req.body;
+    const { nom, prenom, mail, genre } = req.body;
     await prisma.employe.update({
         where: { id: Number(req.params.id) },
-        data: { nom, prenom, mail, age: age ? Number(age) : null, genre }
+        data: { nom, prenom, mail, genre }
     });
     res.redirect('/employes');
 };
@@ -119,7 +117,6 @@ exports.getHome = async (req, res) => {
                 nom: true,
                 prenom: true,
                 mail: true,
-                age: true,
                 genre: true
             }
         });

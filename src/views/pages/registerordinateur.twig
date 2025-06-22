@@ -6,8 +6,10 @@
 
 {% block main %}
 	<div class="min-h-screen flex items-center justify-center py-16 px-4">
-		<div class="max-w-2xl w-full bg-[#23232a] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
-			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Projet RH</h1>
+		<div class="max-w-2xl w-full bg-[#2d2d2d] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
+			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8" style="font-family: 'Times New Roman', Times, serif;">
+				RH Digital
+			</h1>
 			<h2 class="text-3xl text-center text-[#a89682] mb-12">Ajouter un ordinateur</h2>
 
 			{% if error %}
@@ -22,9 +24,9 @@
 						Adresse MAC
 					</label>
 					<input type="text" name="macAddress" id="macAddress" required placeholder="AA:BB:CC:DD:EE:FF" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
-					                              bg-[#2a2a33] text-[#d6bfa7] p-5
-					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
-					                              placeholder-[#8b7355]">
+										                              bg-[#2d2d2d] text-[#d6bfa7] p-5
+										                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+										                              placeholder-[#8b7355]">
 				</div>
 
 				<div class="space-y-3">
@@ -32,9 +34,9 @@
 						Marque
 					</label>
 					<input type="text" name="marque" id="marque" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
-					                              bg-[#2a2a33] text-[#d6bfa7] p-5
-					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
-					                              placeholder-[#8b7355]">
+										                              bg-[#2d2d2d] text-[#d6bfa7] p-5
+										                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+										                              placeholder-[#8b7355]">
 				</div>
 
 				<div class="space-y-3">
@@ -42,9 +44,9 @@
 						Modèle
 					</label>
 					<input type="text" name="modele" id="modele" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
-					                              bg-[#2a2a33] text-[#d6bfa7] p-5
-					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
-					                              placeholder-[#8b7355]">
+										                              bg-[#2d2d2d] text-[#d6bfa7] p-5
+										                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+										                              placeholder-[#8b7355]">
 				</div>
 
 				<div class="space-y-3">
@@ -52,9 +54,9 @@
 						Statut
 					</label>
 					<input type="text" name="statut" id="statut" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
-					                              bg-[#2a2a33] text-[#d6bfa7] p-5
-					                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
-					                              placeholder-[#8b7355]">
+										                              bg-[#2d2d2d] text-[#d6bfa7] p-5
+										                              focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+										                              placeholder-[#8b7355]">
 				</div>
 
 				<div class="space-y-3">
@@ -62,9 +64,9 @@
 						Disponible
 					</label>
 					<select id="disponible" name="disponible" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
-							                           bg-[#2a2a33] text-[#d6bfa7] p-5
-							                           focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
-							                           placeholder-[#8b7355]">
+														                           bg-[#2d2d2d] text-[#d6bfa7] p-5
+														                           focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+														                           placeholder-[#8b7355]">
 						<option value="true">Oui</option>
 						<option value="false">Non</option>
 					</select>
@@ -75,9 +77,9 @@
 						Attribuer à un employé
 					</label>
 					<select id="employeId" name="employeId" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7]
-							                           bg-[#2a2a33] text-[#d6bfa7] p-5
-							                           focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
-							                           placeholder-[#8b7355]">
+														                           bg-[#2d2d2d] text-[#d6bfa7] p-5
+														                           focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7]
+														                           placeholder-[#8b7355]">
 						<option value="">Aucun</option>
 						{% for employe in employes %}
 							<option value="{{ employe.id }}">{{ employe.nom }}
@@ -87,9 +89,9 @@
 				</div>
 
 				<button type="submit" class="w-full bg-[#d6bfa7] text-[#23232a] font-bold text-xl py-5 px-8 rounded-xl
-						                           hover:bg-[#bfa888] transform hover:scale-[1.02]
-						                           transition-all duration-200 ease-in-out
-						                           shadow-lg hover:shadow-xl mt-8">
+												                           hover:bg-[#bfa888] transform hover:scale-[1.02]
+												                           transition-all duration-200 ease-in-out
+												                           shadow-lg hover:shadow-xl mt-8">
 					Enregistrer
 				</button>
 			</form>

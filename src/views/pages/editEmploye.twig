@@ -1,0 +1,38 @@
+{% extends "../layouts/base.twig" %}
+
+{% block main %}
+	<div class="min-h-screen flex items-center justify-center py-16 px-4">
+		<div class="max-w-xl w-full bg-[#2d2d2d] rounded-2xl shadow-2xl p-12 border-2 border-[#d6bfa7]">
+			<h1 class="text-5xl font-bold text-center text-[#d6bfa7] mb-8">Modifier un employé</h1>
+			<form method="post" action="/employes/edit/{{ employe.id }}" class="space-y-8">
+				<div class="space-y-4">
+					<label for="nom" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Nom</label>
+					<input type="text" id="nom" name="nom" required minlength="2" value="{{ employe.nom }}" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem] focus:ring-4 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] transition-all duration-200 placeholder-[#8b7355]">
+				</div>
+				<div class="space-y-4">
+					<label for="prenom" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Prénom</label>
+					<input type="text" id="prenom" name="prenom" required minlength="2" value="{{ employe.prenom }}" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem] focus:ring-4 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] transition-all duration-200 placeholder-[#8b7355]">
+				</div>
+				<div class="space-y-4">
+					<label for="mail" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Email</label>
+					<input type="email" id="mail" name="mail" required value="{{ employe.mail }}" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem] focus:ring-4 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] transition-all duration-200 placeholder-[#8b7355]">
+				</div>
+				<div class="space-y-4">
+					<label for="poste" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Poste</label>
+					<input type="text" id="poste" name="poste" required value="{{ employe.poste }}" class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem] focus:ring-4 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] transition-all duration-200 placeholder-[#8b7355]">
+				</div>
+				<div class="space-y-4">
+					<label for="genre" class="block text-2xl font-medium text-[#d6bfa7] text-center mb-3">Genre</label>
+					<select id="genre" name="genre" required class="block w-full text-center text-xl rounded-xl border-2 border-[#d6bfa7] bg-[##2d2d2d] text-[#d6bfa7] py-6 px-5 min-h-[4rem] focus:ring-2 focus:ring-[#d6bfa7] focus:border-[#d6bfa7] placeholder-[#8b7355]">
+						<option value="homme" {% if employe.genre == 'homme' %} selected {% endif %}>Homme</option>
+						<option value="femme" {% if employe.genre == 'femme' %} selected {% endif %}>Femme</option>
+						<option value="autre" {% if employe.genre == 'autre' %} selected {% endif %}>Autre</option>
+					</select>
+				</div>
+				<button type="submit" class="w-full bg-[#d6bfa7] text-[#2d2d2d] font-bold text-xl py-6 px-8 rounded-xl min-h-[4rem] hover:bg-[#bfa888] transform hover:scale-[1.02] transition-all duration-200 ease-in-out shadow-lg hover:shadow-xl mt-8">
+					Enregistrer les modifications
+				</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}

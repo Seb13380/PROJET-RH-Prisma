@@ -4,18 +4,35 @@ const prisma = new PrismaClient();
 
 exports.listEmployes = async (req, res) => {
     try {
-        const employes = await prisma.employe.findMany();
+        const { q, poste, genre } = req.query;
+        const where = {
+            rhId: req.session.RH.id
+        };
 
-        res.render('pages/employes.twig', {
+        if (q) {
+            where.OR = [
+                { nom: { contains: q } },
+                { prenom: { contains: q } },
+                { mail: { contains: q } }
+            ];
+        }
+        if (poste) where.poste = poste;
+        if (genre) where.genre = genre;
+
+        const employes = await prisma.employe.findMany({ where });
+
+        res.render('pages/employes', {
             employes,
+            q,
+            poste,
+            genre,
             RH: req.session.RH
         });
     } catch (error) {
-        console.error(error);
+
         res.status(500).render('pages/employes', {
             error: 'Erreur lors du chargement des employés',
             employes: [],
-            RH: req.session.RH
         });
     }
 };
@@ -24,18 +41,18 @@ exports.getEmployeRegister = (req, res) => {
     res.render('pages/registerEmploye');
 };
 
+exports.showEditForm = async (req, res) => {
+    const employe = await prisma.employe.findUnique({ where: { id: Number(req.params.id) } });
+    res.render('pages/editEmploye', { employe });
+};
 
 exports.editEmploye = async (req, res) => {
-    try {
-        const { nom, prenom, mail, age, genre } = req.body;
-        await prisma.employe.update({
-            where: { id: Number(req.params.id) },
-            data: { nom, prenom, mail, age: age ? Number(age) : null, genre }
-        });
-        res.redirect('/employes');
-    } catch (error) {
-        res.redirect('/employes');
-    }
+    const { nom, prenom, mail, poste, genre } = req.body;
+    await prisma.employe.update({
+        where: { id: Number(req.params.id) },
+        data: { nom, prenom, mail, poste, genre }
+    });
+    res.redirect('/employes');
 };
 
 exports.deleteEmploye = async (req, res) => {
@@ -57,7 +74,6 @@ exports.registerEmploye = async (req, res) => {
     try {
         const { nom, prenom, mail, poste, genre } = req.body;
 
-        // Vérification des champs obligatoires
         if (!nom || !prenom || !mail || !poste || !genre) {
             return res.render('pages/registerEmploye', {
                 error: "Tous les champs sont obligatoires",
@@ -65,7 +81,6 @@ exports.registerEmploye = async (req, res) => {
             });
         }
 
-        // Création de l'employé
         await prisma.employe.create({
             data: {
                 nom,
