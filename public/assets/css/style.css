@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-/* Ajoute dans public/assets/css/style.css */
 @keyframes fade-in {
     from {
         opacity: 0;
